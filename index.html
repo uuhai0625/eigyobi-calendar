@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script>
+  (function() {
+    var GA_ID = 'G-63F2ZQWLSQ';
+    var isLocalDev = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+    if (isLocalDev) return;
+    try { if (/[?&]no_ga=0/.test(location.search)) localStorage.removeItem('no_ga'); if (/[?&]no_ga=1/.test(location.search)) localStorage.setItem('no_ga', '1'); if (localStorage.getItem('no_ga') === '1') return; } catch (e) {}
+    var gaQ = new URLSearchParams(location.search); if (gaQ.get('obs') === '1' || gaQ.get('no_ga') === '1') return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+    document.addEventListener('click', function(e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="booth.pm"]') : null;
+      if (!a) return;
+      gtag('event', 'booth_click', { link_url: a.href, link_id: a.id || '', link_text: (a.textContent || '').trim().slice(0, 40) });
+    });
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="営業日カレンダーを無料で作成できるツール。定休日の曜日と臨時休業の日を入れるだけで、お店の営業日カレンダーをInstagram用の画像(正方形・縦長)やA4の張り紙に。2026年・2027年の祝日入り、月曜はじまり、短縮営業・臨時営業も。臨時休業のお知らせ(張り紙テンプレート・例文)も作れます。登録不要・スマホでも作れます。">
+<link rel="canonical" href="https://uuhai0625.github.io/eigyobi-calendar/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="営業日カレンダー作成ツール 無料【2026年・2027年の祝日入り】画像・A4で|臨時休業の張り紙も">
+<meta property="og:description" content="営業日カレンダーを無料で作成できるツール。定休日の曜日と臨時休業の日を入れるだけで、お店の営業日カレンダーをInstagram用の画像(正方形・縦長)やA4の張り紙に。2026年・2027年の祝日入り、月曜はじまり、短縮営業・臨時営業も。臨時休業のお知らせ(張り紙テンプレート・例文)も作れます。登録不要・スマホでも作れます。">
+<meta property="og:url" content="https://uuhai0625.github.io/eigyobi-calendar/">
+<meta property="og:image" content="https://uuhai0625.github.io/eigyobi-calendar/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>営業日カレンダー作成ツール 無料【2026年・2027年の祝日入り】画像・A4で|臨時休業の張り紙も</title>
+<style>
+  :root {
+    --bg: #faf6f1;
+    --panel: #ffffff;
+    --border: #eadfd3;
+    --field-border: #7d6a5a;
+    --text: #2b231d;
+    --muted: #5f5145;
+    --accent: #9a3412;
+    --accent-dark: #7c2d12;
+    --soft: #fbeee4;
+    --ng: #b3261e;
+    --locked: #d5c3b3;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+  header { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; padding: 24px 20px 18px; text-align: center; }
+  header h1 { margin: 0 0 6px; font-size: 1.35rem; }
+  header p { margin: 0; font-size: .9rem; }
+  main { max-width: 1080px; margin: 0 auto; padding: 22px 16px 50px; }
+  main > * { min-width: 0; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+  .layout > div { min-width: 0; }
+  .layout > .col-pv { position: sticky; top: 12px; }
+  section.card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 18px; }
+  section.card h2 { margin: 0 0 6px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .desc { color: var(--muted); font-size: .84rem; margin: 0 0 12px; }
+  .fine { color: var(--muted); font-size: .8rem; margin: 8px 0 0; }
+  .badge { display: inline-block; font-size: .7rem; padding: 2px 8px; border-radius: 999px; background: #fff1cc; color: #7a5600; font-weight: bold; }
+  .hidden { display: none !important; }
+  label.field { display: block; margin-bottom: 12px; }
+  .lbl { font-size: .85rem; font-weight: bold; display: block; }
+  .hint { font-size: .78rem; color: var(--muted); font-weight: normal; display: block; margin-top: 2px; }
+  input[type=text], input[type=date], select, textarea { width: 100%; margin-top: 5px; padding: 8px 10px; min-height: 44px; border: 1px solid var(--field-border); border-radius: 8px; font-size: 1rem; font-family: inherit; background: #fff; color: var(--text); }
+  input[type=color] { width: 56px; height: 44px; padding: 2px; border: 1px solid var(--field-border); border-radius: 8px; background: #fff; }
+  textarea { min-height: 80px; line-height: 1.5; resize: vertical; }
+  .row2 { display: flex; gap: 12px; }
+  .row2 > * { flex: 1; min-width: 0; }
+  .seg { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .seg label { min-height: 44px; display: flex; align-items: center; gap: 6px; border: 1px solid var(--field-border); border-radius: 8px; padding: 6px 12px; font-size: .86rem; cursor: pointer; background: #fff; }
+  .seg label.on { border-color: var(--accent); background: var(--soft); font-weight: bold; }
+  .seg label:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .seg.days label { padding: 6px 10px; min-width: 52px; justify-content: center; }
+  fieldset.plain { border: none; padding: 0; margin: 0 0 12px; min-width: 0; }
+  fieldset.plain legend { font-size: .85rem; font-weight: bold; padding: 0; margin-bottom: 5px; }
+  label.check { display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: .86rem; cursor: pointer; }
+  label.check input { width: 20px; height: 20px; margin: 0; flex-shrink: 0; }
+  .btn-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .btn { min-height: 44px; padding: 9px 16px; border-radius: 8px; font-size: .88rem; cursor: pointer; border: 1px solid var(--field-border); background: #fff; color: var(--text); font-family: inherit; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: bold; }
+  .btn.small { min-height: 40px; padding: 6px 12px; font-size: .82rem; }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn:focus-visible, a:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 2px; }
+  .btn-row .btn { flex: 1; }
+  .status { font-size: .82rem; color: var(--muted); margin-top: 6px; min-height: 1.2em; }
+  .status.err { color: var(--ng); font-weight: bold; }
+  .monthnav { display: flex; gap: 8px; align-items: flex-end; }
+  .monthnav label.field { flex: 1; margin: 0; }
+  .monthnav .btn { flex: 0 0 auto; }
+  .ed { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; margin-top: 10px; }
+  .ed .wd { text-align: center; font-size: .78rem; font-weight: bold; color: var(--muted); }
+  .ed .wd.sun { color: #c0262c; }
+  .ed .wd.sat { color: #2457b3; }
+  .ed button { min-height: 52px; border: 1px solid var(--border); border-radius: 8px; background: #fff; font-family: inherit; font-size: .9rem; cursor: pointer; padding: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; color: var(--text); }
+  .ed button small { font-size: .7rem; color: var(--muted); }
+  .ed button.hol { color: #c0262c; }
+  .ed button.sat { color: #2457b3; }
+  .ed button.s-off { background: #e3e3e3; border-color: #9a9a9a; color: var(--text); }
+  .ed button.s-temp { background: #f19a9a; border-color: #b3261e; color: #3a0d0d; }
+  .ed button.s-rent { background: #e4dcf5; border-color: #6b55a8; }
+  .ed button.s-short { background: #fff3c4; border-color: #b8860b; }
+  .ed button.s-extra { background: #dff0e2; border-color: #2f7a3e; }
+  .ed button.ovr { box-shadow: inset 0 0 0 2px var(--accent-dark); }
+  .ed button:focus-visible { outline: 2px solid var(--accent-dark); outline-offset: 1px; }
+  .ed .blank { min-height: 52px; }
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: 8px; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; border: 1px solid #999; }
+  .legend .l-off::before { background: #e3e3e3; }
+  .legend .l-temp::before { background: #f19a9a; }
+  .legend .l-rent::before { background: #e4dcf5; }
+  .legend .l-ovr::before { background: #fff; border: 2px solid var(--accent-dark); }
+  .legend .l-short::before { background: #fff3c4; }
+  .legend .l-extra::before { background: #dff0e2; }
+  .preview { border: 1px solid var(--border); border-radius: 8px; background: #efe7df; padding: 10px; display: flex; justify-content: center; }
+  .pv-jump { display: none; }
+  @media (max-width: 860px) { .pv-jump { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent-dark); font-size: .85rem; } }
+  .preview canvas { max-width: 100%; max-height: 78vh; width: auto; height: auto; display: block; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+  .notice-pv { border: 1px solid var(--border); border-radius: 8px; background: #efe7df; padding: 12px; }
+  .notice { background: #fff; color: #222; aspect-ratio: 1 / 1.414; max-width: 420px; margin: 0 auto; padding: 9% 8%; display: flex; flex-direction: column; text-align: center; font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+  .notice .nt { font-size: clamp(1.1rem, 5vw, 1.9rem); font-weight: bold; letter-spacing: .1em; border-bottom: 3px double #222; padding-bottom: .4em; margin-bottom: 1em; }
+  .notice .nb { font-size: clamp(.72rem, 2.8vw, .95rem); line-height: 1.9; text-align: left; }
+  .notice .nd { font-size: clamp(1rem, 4.6vw, 1.6rem); font-weight: bold; margin: 1em 0; padding: .6em .4em; text-align: center; border: 2px solid #222; }
+  .notice .nr { font-size: clamp(.8rem, 3.4vw, 1.15rem); font-weight: bold; text-align: center; margin: 0 0 .8em; }
+  .notice .ns { margin-top: auto; text-align: right; font-size: clamp(.75rem, 3vw, 1rem); }
+  .notice .nt { margin-top: auto; }
+  .notice .nb:last-of-type { margin-bottom: auto; }
+  .guide { font-size: .88rem; }
+  .guide h3 { font-size: .95rem; margin: 14px 0 4px; }
+  .guide ul, .guide ol { padding-left: 1.3em; margin: 6px 0; }
+  .guide li { margin: 4px 0; }
+  .locked-panel { border: 1px dashed var(--locked); border-radius: 10px; padding: 16px; text-align: center; color: var(--muted); background: #fffaf6; }
+  .locked-panel .lead { color: var(--text); font-weight: bold; }
+  .locked-panel .feat-list { text-align: left; max-width: 620px; margin: 10px auto; font-size: .85rem; padding-left: 1.2em; }
+  .buy-btn { display: inline-block; margin-top: 8px; background: var(--accent-dark); color: #fff; font-weight: bold; padding: 11px 22px; border-radius: 999px; text-decoration: none; font-size: .9rem; }
+  .rules { list-style: none; margin: 6px 0 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; }
+  .rules li { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--field-border); border-radius: 999px; padding: 2px 4px 2px 12px; font-size: .84rem; }
+  .rules button { min-height: 36px; min-width: 36px; border: 0; background: transparent; cursor: pointer; font-size: 1rem; }
+  footer { max-width: 1080px; margin: 0 auto; padding: 0 16px 40px; font-size: .8rem; color: var(--muted); }
+  footer a { color: var(--muted); }
+  #printArea { display: none; }
+  @media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    body { background: #fff; }
+    body.printing > *:not(#printArea) { display: none !important; }
+    body.printing #printArea { display: block !important; }
+    #printArea img { width: 100%; max-height: 277mm; object-fit: contain; display: block; }
+    #printArea .notice { box-shadow: none; max-width: none; width: 100%; height: 274mm; aspect-ratio: auto; padding: 20mm 18mm; overflow: hidden; break-inside: avoid; }
+    #printArea .notice .nt { font-size: 30pt; }
+    #printArea .notice .nb { font-size: 14pt; }
+    #printArea .notice .nd { font-size: 26pt; }
+    #printArea .notice .nr { font-size: 18pt; }
+    #printArea .notice .ns { font-size: 14pt; }
+  }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .layout > .col-pv { position: static; }
+  }
+  @media (max-width: 600px) {
+    .row2 { flex-direction: column; gap: 0; }
+    section.card { padding: 16px 12px; }
+    .ed { gap: 3px; }
+    .ed button { min-height: 46px; font-size: .82rem; }
+  }
+</style>
+<!--ANSHIN_CSS_START--><style>:root{--anshin-w:1048px;--anshin-pad:16px}.anshin-strip,.anshin{box-sizing:border-box;width:min(var(--anshin-w),calc(100% - 2 * var(--anshin-pad)));margin-left:auto;margin-right:auto}.anshin-strip{list-style:none;margin-top:10px;margin-bottom:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;font-size:.8rem;line-height:1.5}.anshin-strip li{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1px solid rgba(20,120,90,.45);border-radius:999px;background:rgba(20,120,90,.07)}.anshin-strip li.anshin-more{border:0;background:none;padding:3px 2px}.anshin-strip a,.anshin a{color:inherit}.anshin{margin-top:18px;margin-bottom:18px;padding:14px 18px;border:1px solid rgba(20,120,90,.45);border-radius:10px;background:rgba(20,120,90,.05);font-size:.86rem;line-height:1.7}.anshin h2{font-size:1rem;margin:0 0 6px}.anshin p{margin:0 0 6px}.anshin ul{margin:0;padding-left:1.2em}.anshin li{margin:3px 0}.anshin details{margin-top:6px}.anshin summary{cursor:pointer;font-weight:bold}.anshin .anshin-meta{margin:8px 0 0;font-size:.8rem;opacity:.85}@media print{.anshin,.anshin-strip{display:none!important}}</style><!--ANSHIN_CSS_END-->
+<!--UPSELL_CSS_START--><style>.upsell-top{box-sizing:border-box;width:min(var(--anshin-w,880px),calc(100% - 2 * var(--anshin-pad,16px)));margin:12px auto 0;font-size:.85rem;line-height:1.6}.upsell-top a{color:inherit}.upsell-assure{list-style:none;margin:12px 0 10px;padding:0;display:flex;flex-wrap:wrap;gap:6px 8px;font-size:.8rem;line-height:1.5}.upsell-assure li{padding:3px 10px;border:1px solid rgba(20,120,90,.45);border-radius:12px;background:rgba(20,120,90,.06)}.upsell-terms{margin:8px 0 0;font-size:.78rem;line-height:1.6;opacity:.85}.upsell-toast{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:9999;box-sizing:border-box;width:min(520px,calc(100% - 24px));padding:14px 56px 14px 16px;border-radius:12px;background:#fff;color:#222;border:1px solid #c9c2d6;box-shadow:0 6px 24px rgba(0,0,0,.18);font-size:.88rem;line-height:1.6}.upsell-toast p{margin:0 0 6px;font-weight:bold}.upsell-toast ul{margin:0 0 10px;padding-left:1.2em}.upsell-toast li{margin:2px 0}.upsell-toast .upsell-note{display:block;margin-top:6px;font-size:.75rem;color:#555}.upsell-toast .upsell-go{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:8px;background:#c9283e;color:#fff;font-weight:bold;text-decoration:none}.upsell-toast .upsell-go:focus-visible,.upsell-toast .upsell-x:focus-visible{outline:3px solid #2560c4;outline-offset:2px}.upsell-toast .upsell-x{position:absolute;top:4px;right:4px;width:44px;height:44px;border:0;border-radius:8px;background:transparent;color:#555;font-size:1.3rem;line-height:1;cursor:pointer}.upsell-inline{white-space:nowrap;color:inherit;text-decoration:underline;text-underline-offset:2px}@media print{.upsell-top,.upsell-assure,.upsell-terms,.upsell-toast,.upsell-inline{display:none!important}}</style><!--UPSELL_CSS_END-->
+</head>
+<body>
+
+<header>
+  <h1>営業日カレンダー作成ツール(お店の定休日・臨時休業を画像とA4に)</h1>
+  <p>定休日の曜日を選んで、休みの日を押すだけ。お店の営業日カレンダーを、Instagram用の画像やA4の張り紙にできます。祝日入り(2027年まで)・臨時休業のお知らせも。登録不要・スマホでも作れます</p>
+</header>
+<!--ANSHIN_STRIP_START-->
+<ul class="anshin-strip" aria-label="データの扱い">
+  <li><span aria-hidden="true">✓</span> 入力内容はこの端末の中だけで処理</li>
+  <li><span aria-hidden="true">✓</span> 登録・ログイン不要</li>
+  <li><span aria-hidden="true">✓</span> 仕組みを公開中</li>
+  <li class="anshin-more"><a href="#anshin">データの扱いをくわしく</a></li>
+</ul>
+<!--ANSHIN_STRIP_END-->
+<!--UPSELL_TOP_START--><p class="upsell-top no-print" id="upsellTop">このページは無料のまま使えます。機能を増やしたい方は <a href="#pro-section">買い切り版(¥100・1回払い)<span aria-hidden="true"> ↓</span></a></p><!--UPSELL_TOP_END-->
+
+<main>
+<div class="layout">
+<div>
+
+  <section class="card" id="rule-card">
+    <h2>① 月と定休日</h2>
+    <div class="monthnav">
+      <button type="button" class="btn small" id="prevBtn" aria-label="前の月">←</button>
+      <label class="field"><span class="lbl">年</span><select id="inYear"></select></label>
+      <label class="field"><span class="lbl">月</span><select id="inMonth"></select></label>
+      <button type="button" class="btn small" id="nextBtn" aria-label="次の月">→</button>
+    </div>
+    <p class="desc" style="margin:10px 0 4px;">まず、毎週の定休日の曜日にチェックを入れます。そのあと②で、休みや短縮営業の日を押して変えます。</p>
+    <fieldset class="plain">
+      <legend>毎週の定休日</legend>
+      <div class="seg days" id="weekSeg"></div>
+    </fieldset>
+    <label class="check"><input type="checkbox" id="holOff"> 祝日は休み(祝日は2026年・2027年分、内閣府の公表どおり)</label>
+    <fieldset class="plain" id="nthBox">
+      <legend>第○曜日の定休日(第2・第4火曜など)</legend>
+      <div class="row2" style="align-items:flex-end;">
+        <label class="field" style="margin:0;"><span class="lbl">第</span>
+          <select id="nthN"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></label>
+        <label class="field" style="margin:0;"><span class="lbl">曜日</span><select id="nthW"></select></label>
+        <button type="button" class="btn small" id="nthAdd" style="flex:0 0 auto;">追加</button>
+      </div>
+      <ul class="rules" id="nthList"></ul>
+    </fieldset>
+    
+    <label class="check"><input type="checkbox" id="monStart"> 月曜はじまりにする</label>
+  </section>
+
+  <section class="card" id="day-card">
+    <h2>② 日ごとに変える</h2>
+    <p class="desc">日付を押すたびに切り替わります。営業日は「臨時休業 → 短縮営業 → 休業 → 貸切 → 元どおり」、定休日は「臨時休業 → 臨時営業 → 短縮営業 → 元どおり」の順です。</p>
+    <div class="ed" id="editor" role="group" aria-label="日ごとの営業・休業"></div>
+    <div class="legend"><span class="l-off">定休日・休業</span><span class="l-temp">臨時休業</span><span class="l-short">短縮営業</span><span class="l-extra">臨時営業</span><span class="l-rent">貸切</span><span class="l-ovr">太枠=①から変えた日</span></div>
+    <div class="btn-row"><button type="button" class="btn small" id="clearMonth">この月の変更を戻す</button></div>
+    <a class="pv-jump" href="#pv-card">↓ 見本を見る</a>
+    <div class="status" id="daySt" role="status"></div>
+  </section>
+
+  <section class="card" id="text-card">
+    <h2>③ 文字と見た目</h2>
+    <label class="field"><span class="lbl">お店の名前</span><input type="text" id="inShop" maxlength="30" placeholder="例: cafe こもれび"></label>
+    <label class="field"><span class="lbl">見出し</span><input type="text" id="inTitle" maxlength="24" placeholder="空欄なら「10月の営業日」"></label>
+    <label class="field"><span class="lbl">ひとこと(営業時間など・3行まで)</span><textarea id="inNote" maxlength="120" placeholder="例: 営業時間 11:00〜18:00(L.O. 17:30)"></textarea></label>
+    <div class="row2">
+      <label class="field"><span class="lbl">色</span>
+        <select id="inTheme">
+          <option value="simple">シンプル(白×黒)</option>
+          <option value="natural">ナチュラル(生成り×茶)</option>
+          <option value="navy">ネイビー</option>
+          <option value="sakura">さくら(くすみピンク)</option>
+          
+        </select>
+      </label>
+      <label class="field"><span class="lbl">画像の形</span>
+        <select id="inSize">
+          <option value="sq">正方形(1080×1080・Instagram)</option>
+          <option value="pt">縦長(1080×1350・Instagram)</option>
+          <option value="a4">A4縦(印刷・張り紙)</option>
+        </select>
+      </label>
+    </div>
+    
+  </section>
+
+</div>
+<div class="col-pv">
+
+  <section class="card" id="pv-card">
+    <h2>④ 見本と保存</h2>
+    <div class="preview"><canvas id="cv" width="1080" height="1080" role="img" aria-label="営業日カレンダーの見本"></canvas></div>
+    <div class="btn-row">
+      <button type="button" class="btn primary" id="pngBtn">画像で保存(PNG)</button>
+      <button type="button" class="btn" id="printBtn">印刷する(A4・PDF保存も)</button>
+    </div>
+    <div class="status" id="outSt" role="status"></div>
+    <p class="fine" id="creditNote">無料版では、画像にも印刷にも右下に小さくこのツールのURLが入ります。</p>
+  </section>
+
+</div>
+</div>
+
+  <section class="card" id="notice-card">
+    <h2>⑤ 臨時休業の張り紙テンプレート(例文つき・無料)</h2>
+    <p class="desc">お店の入口に貼る「臨時休業のお知らせ」をA4で作ります。年末年始・夏季休業のお知らせにも使えます。営業再開日は、①②の定休日を飛ばして自動で入ります。</p>
+    <div class="layout">
+      <div>
+        <div class="row2">
+          <label class="field"><span class="lbl">休む最初の日</span><input type="date" id="ntFrom"></label>
+          <label class="field"><span class="lbl">休む最後の日</span><input type="date" id="ntTo"></label>
+        </div>
+        <label class="field"><span class="lbl">見出し</span>
+          <select id="ntKind">
+            <option value="臨時休業">臨時休業のお知らせ</option>
+            <option value="年末年始休業">年末年始休業のお知らせ</option>
+            <option value="夏季休業">夏季休業のお知らせ</option>
+          </select>
+        </label>
+        <label class="field"><span class="lbl">理由</span>
+          <select id="ntReason">
+            <option value="誠に勝手ながら、都合により">都合により</option>
+            <option value="誠に勝手ながら、店主の体調不良のため">店主の体調不良</option>
+            <option value="台風の接近に伴い、お客様と従業員の安全を考慮して">台風の接近</option>
+            <option value="誠に勝手ながら、設備点検のため">設備点検</option>
+            <option value="誠に勝手ながら、研修のため">研修</option>
+            <option value="誠に勝手ながら、忌引きのため">忌引き(不幸)</option>
+            <option value="誠に勝手ながら、身内に不幸があったため">身内の不幸(やわらかい言い方)</option>
+            <option value="誠に勝手ながら、">理由を書かない</option>
+            <option value="custom">自分で書く</option>
+          </select>
+        </label>
+        <label class="field hidden" id="ntCustomField"><span class="lbl">理由(自分で書く)</span><input type="text" id="ntCustom" maxlength="60" placeholder="例: 誠に勝手ながら、店内改装のため"></label>
+        <label class="check"><input type="checkbox" id="ntUndecided"> 営業再開日はまだ決まっていない</label>
+        <label class="field"><span class="lbl">お店の名前</span><input type="text" id="ntShop" maxlength="30" placeholder="③と同じなら空欄でOK"></label>
+        <label class="field"><span class="lbl">ひとこと(任意)</span><input type="text" id="ntExtra" maxlength="80" placeholder="例: ご予約のお客様には個別にご連絡いたします"></label>
+        <div class="btn-row"><button type="button" class="btn primary" id="ntPrint">張り紙を印刷する(A4)</button></div>
+        <div class="status" id="ntSt" role="status"></div>
+      </div>
+      <div class="notice-pv"><div class="notice" id="ntPreview" aria-live="polite"></div></div>
+    </div>
+  </section>
+
+  <section class="card" id="pro-section">
+    <h2>クレジットなし・ロゴ入り・1年分 <span class="badge">買い切り版 ¥100(税込)</span></h2>
+    <div class="locked-panel">
+      <p class="lead">お店のInstagramに、クレジットの入らないロゴ入りのカレンダーを。1年分をA4にまとめることも。</p>
+      <p>このページの機能は無料でそのまま使えます。買い切り版(ダウンロード購入)では、次の機能が増えます:</p>
+      <ul class="feat-list">
+        <li><strong>右下のクレジットなし・高画質(2倍)</strong>で保存(印刷も)</li>
+        <li><strong>ロゴ画像</strong>を入れられます</li>
+        <li><strong>2か月・3か月・1年分(12か月)を1枚に</strong>(無料版は1か月ずつ。3か月と1年分はA4縦、1年分は日付と色分けで表示)</li>
+        <li><strong>色の追加</strong>: ミント・モノクロ(コピー向け)・ブラック・好きな色</li>
+        <li><strong>パソコンで使うHTMLファイルです</strong>(スマホでの動作は保証していません)。ダブルクリックで開くだけ、ネットにつながっていなくても使えます</li>
+      </ul>
+<!--UPSELL_ASSURE_START--><ul class="upsell-assure" aria-label="買い切り版について"><li>¥100(税込)の1回払い・月額なし</li><li>パソコン向けのHTMLファイル(スマホでは開けない機種あり)</li><li>ネットにつながっていなくても動く</li><li>BOOTHで購入(クレジットカード・楽天ペイは手数料なし、コンビニ・銀行払いは別途手数料)</li></ul><!--UPSELL_ASSURE_END-->
+      <a class="buy-btn" href="https://uuhai0625.booth.pm/items/8989914" id="buyLink" target="_blank" rel="noopener">買い切り版を見る(BOOTH・新しいタブ)</a><!--UPSELL_TERMS_START--><p class="upsell-terms">販売者の情報・返品などの販売条件は、BOOTHの商品ページでご確認ください。BOOTHでの購入にはpixivのアカウントが必要です。</p><!--UPSELL_TERMS_END-->
+    </div>
+  </section>
+
+  <section class="card guide" id="guide">
+    <h2>営業日カレンダーの作り方</h2>
+    <ol>
+      <li>①で年と月を選び、毎週の定休日(曜日)にチェックを入れます。祝日を休みにするお店は「祝日は休み」にもチェックします。</li>
+      <li>②で、臨時休業・短縮営業・定休日に開ける日(臨時営業)などを、日付を押して切り替えます。</li>
+      <li>③でお店の名前や営業時間、色と画像の形を選びます。</li>
+      <li>④の「画像で保存」でInstagramなどに投稿したり、「印刷する」でA4の張り紙にしたりします(PDFで保存してコンビニで印刷もできます)。</li>
+    </ol>
+    <h3>Instagramでお知らせするコツ</h3>
+    <ul>
+      <li>毎月同じ形・同じ色で出すと、「営業日カレンダーだ」とひと目で分かってもらえます。</li>
+      <li>投稿したら、プロフィールに固定(ピン留め)したり、ストーリーズのハイライトに入れたりすると、あとから見に来た人にも届きます。</li>
+      <li>臨時休業が増えたときは、作り直して新しく投稿し、プロフィールの固定(ピン留め)を新しい投稿に付け替えるか、ストーリーズで追加のお知らせをします(投稿した画像はあとから差し替えられません)。</li>
+    </ul>
+    <h3>臨時休業の張り紙の書き方(例文)</h3>
+    <ul>
+      <li>「誠に勝手ながら、都合により下記の日程を臨時休業とさせていただきます。」のように、理由はくわしく書かなくても大丈夫です。</li>
+      <li>休む日だけでなく、<strong>いつから通常営業に戻るか</strong>を書くと親切です(⑤では、最後の日の次の営業日を①②の定休日から自動で入れます)。決まっていないときは「営業再開は決まり次第、改めてお知らせいたします」と書きます。</li>
+      <li>最後に「ご不便をおかけいたしますが、何卒ご了承くださいますようお願い申し上げます。」と添えるのが一般的です。</li>
+    </ul>
+    <h3>よくある疑問</h3>
+    <ul>
+      <li><strong>祝日は入っている?</strong> 2026年・2027年の祝日(振替休日・国民の休日を含む)は、内閣府「<a href="https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html" target="_blank" rel="noopener">国民の祝日について</a>」の一覧どおりに入っています(2026年10月確認)。2028年以降の祝日は、内閣府の公表後にこのページに追加する予定です。それまでは②で日ごとに休みにできます。法改正などで変わることがあるので、大事な掲示は最新の情報もご確認ください。</li>
+      <li><strong>年末年始やお盆休みは?</strong> ②でその日を「休業」にしてください(臨時休業ではなく、計画した休みとして表示されます)。張り紙は⑤で「年末年始休業のお知らせ」「夏季休業のお知らせ」を選べます。</li>
+      <li><strong>スマホでも作れる?</strong> 作れます。保存した画像は、iPhoneでは「ファイル」アプリに入ることがあります(そこから写真に保存できます)。InstagramやLINEの中のブラウザでうまく保存できないときは、SafariやChromeで開き直してください。</li>
+      <li><strong>入力した内容は?</strong> このブラウザの中にだけ保存され、どこにも送信されません。</li>
+    </ul>
+  </section>
+
+</main>
+
+<!--ANSHIN_START-->
+<section class="anshin" id="anshin" aria-labelledby="anshin-title">
+  <h2 id="anshin-title">データの扱いについて</h2>
+  <p>このページには、入力した内容を受け取る仕組みがありません。入力した文字や数字は、あなたのスマホやパソコンの中だけで処理されます。</p>
+  <ul>
+    <li>会員登録・ログイン・メールアドレスの入力はありません。</li>
+    <li>自分で確かめたい方へ: ページを開いたあと機内モードにしても、そのまま使えます。</li>
+  </ul>
+  <details>
+    <summary>もっとくわしく(保存・アクセス解析・公開について)</summary>
+    <ul>
+      <li>保存されるデータは、この端末のこのブラウザの中にだけ残ります(localStorage・sessionStorage)。共用のパソコンでは使い終わったら消してください。</li>
+      <li>アクセス解析(Google Analytics)のため、見たページのURL・参照元・端末やブラウザの種類・おおよその地域(IPアドレスから推定)・Cookieの識別子・BOOTHへのリンクのクリック・どのボタンを押したか(回数や選んだ設定を含む)がGoogleに送られます。目的は利用状況の把握です。入力した文字や画像は送りません。(<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleによるデータの使用</a>/<a href="https://tools.google.com/dlpage/gaoptout?hl=ja" target="_blank" rel="noopener">計測を止めるアドオン</a>。止めてもツールはそのまま使えます)</li>
+      <li>このツールの結果や作成物は目安です。入稿・契約・販売などの前には、印刷所や公式の情報でご確認ください。</li>
+      <li>処理の中身はすべて公開しています(詳しい方向け: <a href="https://github.com/uuhai0625/eigyobi-calendar" target="_blank" rel="noopener">GitHub</a>)。</li>
+    </ul>
+  </details>
+  <p class="anshin-meta">作っている人: ウーハイ(個人開発)/不具合・ご質問は<a href="https://x.com/uuhai0625" target="_blank" rel="noopener">X(@uuhai0625)</a>へ/<a href="https://uuhai0625.github.io/" target="_blank" rel="noopener">ほかのツール</a>/この説明の更新日: 2026-10-13</p>
+</section>
+<!--ANSHIN_END-->
+
+<footer>
+  <p id="privacyNote">本ツールは完全にブラウザ内で動作し、入力した内容はどこにも送信されません。</p>
+  <p><a href="https://uuhai0625.booth.pm/" target="_blank" rel="noopener">他のツールも見る(BOOTHショップ)</a></p>
+  <p>不具合・ご要望は X <a href="https://x.com/uuhai0625" target="_blank" rel="noopener">@uuhai0625</a> まで。</p>
+  <p class="related-tools no-print">関連する無料ツール: <a href="https://uuhai0625.github.io/nefuda-maker/" target="_blank" rel="noopener">値札メーカー</a> ・ <a href="https://uuhai0625.github.io/accessory-daishi/" target="_blank" rel="noopener">アクセサリー台紙メーカー</a> ・ <a href="https://uuhai0625.github.io/atena-label/" target="_blank" rel="noopener">宛名ラベル作成</a> ・ <a href="https://uuhai0625.github.io/salon-visit-card/" target="_blank" rel="noopener">サロン来店カード</a> ・ <a href="https://uuhai0625.github.io/#free-tools">ツール一覧</a></p>
+</footer>
+
+<div id="printArea"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var EDITION = "free"; // "full" で買い切り完全版
+
+  function track(name, params) {
+    if (!window.dataLayer) return;
+    (function () { window.dataLayer.push(arguments); })("event", name, params || {});
+  }
+  var $ = function (id) { return document.getElementById(id); };
+  function setSt(id, msg, err) { var e = $(id); if (!e) return; e.textContent = msg; e.classList.toggle("err", !!err); }
+
+  // 祝日(内閣府「国民の祝日について」の一覧より。振替休日・国民の休日を含む)
+  var HOL = {"2026-01-01":"元日","2026-01-12":"成人の日","2026-02-11":"建国記念の日","2026-02-23":"天皇誕生日","2026-03-20":"春分の日","2026-04-29":"昭和の日","2026-05-03":"憲法記念日","2026-05-04":"みどりの日","2026-05-05":"こどもの日","2026-05-06":"振替休日","2026-07-20":"海の日","2026-08-11":"山の日","2026-09-21":"敬老の日","2026-09-22":"国民の休日","2026-09-23":"秋分の日","2026-10-12":"スポーツの日","2026-11-03":"文化の日","2026-11-23":"勤労感謝の日","2027-01-01":"元日","2027-01-11":"成人の日","2027-02-11":"建国記念の日","2027-02-23":"天皇誕生日","2027-03-21":"春分の日","2027-03-22":"振替休日","2027-04-29":"昭和の日","2027-05-03":"憲法記念日","2027-05-04":"みどりの日","2027-05-05":"こどもの日","2027-07-19":"海の日","2027-08-11":"山の日","2027-09-20":"敬老の日","2027-09-23":"秋分の日","2027-10-11":"スポーツの日","2027-11-03":"文化の日","2027-11-23":"勤労感謝の日"};
+  var HOL_FIRST_YEAR = 2026, HOL_LAST_YEAR = 2027;
+  var WD = ["日", "月", "火", "水", "木", "金", "土"];
+  var STATE = {
+    open: { label: "営業", short: "" },
+    off: { label: "休業", short: "休" },
+    temp: { label: "臨時休業", short: "臨休" },
+    short: { label: "短縮営業", short: "短縮" },
+    extra: { label: "臨時営業", short: "営業" },
+    rent: { label: "貸切", short: "貸切" }
+  };
+  var THEMES = {
+    simple: { bg: "#ffffff", ink: "#222222", sub: "#666666", line: "#d9d9d9", off: "#e8e8e8", offInk: "#222222", temp: "#f4c7c3", short: "#fff1c2", extra: "#d8eedb", head: "#222222", sun: "#c0262c", sat: "#2457b3" },
+    natural: { bg: "#f7f1e8", ink: "#3b2f25", sub: "#7a6a5b", line: "#e0d3c1", off: "#d9c4a8", offInk: "#3b2f25", temp: "#efb9a8", short: "#f6e3a8", extra: "#cfe3c4", head: "#6b4f36", sun: "#b0412e", sat: "#3d6a8f" },
+    navy: { bg: "#ffffff", ink: "#1b2a44", sub: "#5a6578", line: "#d5dbe6", off: "#1f3a68", offInk: "#ffffff", temp: "#f2b8b5", short: "#fde9b2", extra: "#cfe8d6", head: "#1f3a68", sun: "#c0262c", sat: "#1f3a68" }
+  };
+  THEMES.sakura = { bg: "#fff7f8", ink: "#4a2b33", sub: "#8a6670", line: "#f1d5db", off: "#e9cdd3", offInk: "#4a2b33", temp: "#d9534f", short: "#fbe7b5", extra: "#cfe8d6", head: "#c45574", sun: "#c0262c", sat: "#3f62a8" };
+  
+  function themeOf() {
+    var t = state.theme;
+    
+    return THEMES[t] || THEMES.simple;
+  }
+
+  var MAX_MONTHS = 1;
+  
+
+  // ===== 状態(このブラウザの中だけに保存) =====
+  var KEY = "eigyobi_v1", LOGO_MAX = 600000;
+  var today = new Date();
+  var state = { y: today.getFullYear(), m: today.getMonth() + 1, weekly: [false, false, false, false, false, false, false], holOff: false, nth: [], months: 1, monStart: false, over: {}, shop: "", title: "", note: "", theme: "simple", color: "#2f6f5e", size: "sq", logo: "", noCredit: true, hi: true,
+    nt: { from: "", to: "", reason: "誠に勝手ながら、都合により", custom: "", shop: "", extra: "", kind: "臨時休業", undecided: false } };
+  function clean(s, max) { return Array.from(String(s == null ? "" : s).replace(/[\x00-\x08\x0b-\x1f\x7f]/g, "")).slice(0, max).join(""); }
+  function load() {
+    try {
+      var o = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (!o || typeof o !== "object") return;
+      if (Array.isArray(o.weekly) && o.weekly.length === 7) state.weekly = o.weekly.map(Boolean);
+      state.holOff = !!o.holOff;
+      state.monStart = !!o.monStart;
+      if (Array.isArray(o.nth)) state.nth = o.nth.filter(function (r) { return r && r.n >= 1 && r.n <= 5 && r.w >= 0 && r.w <= 6; }).slice(0, 10).map(function (r) { return { n: +r.n, w: +r.w }; });
+      if (o.over && typeof o.over === "object") Object.keys(o.over).forEach(function (k) { if (/^\d{4}-\d{2}-\d{2}$/.test(k) && STATE[o.over[k]]) state.over[k] = o.over[k]; });
+      ["shop", "title", "note"].forEach(function (k) { if (typeof o[k] === "string") state[k] = clean(o[k], k === "note" ? 120 : 30); });
+      if (typeof o.theme === "string") state.theme = o.theme;
+      if (typeof o.color === "string" && /^#[0-9a-f]{6}$/i.test(o.color)) state.color = o.color;
+      if (o.size === "sq" || o.size === "pt" || o.size === "a4") state.size = o.size;
+      if ([1, 2, 3, 12].indexOf(+o.months) >= 0) state.months = +o.months;
+      if (typeof o.logo === "string" && /^data:image\/(png|jpeg|webp);base64,/.test(o.logo) && o.logo.length < LOGO_MAX) state.logo = o.logo;
+      if (typeof o.nt === "object" && o.nt) { state.nt.kind = ["臨時休業", "年末年始休業", "夏季休業"].indexOf(o.nt.kind) >= 0 ? o.nt.kind : "臨時休業"; state.nt.undecided = !!o.nt.undecided; }
+      if (typeof o.noCredit === "boolean") state.noCredit = o.noCredit;
+      if (typeof o.hi === "boolean") state.hi = o.hi;
+      if (o.nt && typeof o.nt === "object") ["from", "to", "reason", "custom", "shop", "extra"].forEach(function (k) { if (typeof o.nt[k] === "string") state.nt[k] = clean(o.nt[k], 80); });
+    } catch (e) {}
+    if (!THEMES[state.theme] && state.theme !== "custom") state.theme = "simple";
+    
+    if (!THEMES[state.theme]) state.theme = "simple";
+  }
+  var saveTimer = null, dirty = false;
+  function writeNow() {
+    dirty = false;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); }
+    catch (e) {
+      try { var s2 = JSON.parse(JSON.stringify(state)); s2.logo = ""; localStorage.setItem(KEY, JSON.stringify(s2)); if (state.logo) setSt("outSt", "ロゴが大きすぎてこのブラウザに保存できませんでした(次に開いたときは入っていません)。", true); } catch (e2) {}
+    }
+  }
+  function save() { dirty = true; clearTimeout(saveTimer); saveTimer = setTimeout(writeNow, 200); }
+  // 変更があるときだけ、閉じる直前に保存(別のタブで開いている内容を上書きしないように)
+  window.addEventListener("pagehide", function () { if (dirty) { clearTimeout(saveTimer); writeNow(); } });
+
+  // ===== 日付の計算 =====
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function keyOf(y, m, d) { return y + "-" + pad(m) + "-" + pad(d); }
+  function daysIn(y, m) { return new Date(y, m, 0).getDate(); }
+  function dowOf(y, m, d) { return new Date(y, m - 1, d).getDay(); }
+  function nthOf(d) { return Math.floor((d - 1) / 7) + 1; }
+  function closedByRule(y, m, d) {
+    var w = dowOf(y, m, d);
+    if (state.weekly[w]) return true;
+    if (state.holOff && HOL[keyOf(y, m, d)]) return true;
+    for (var i = 0; i < state.nth.length; i++) if (state.nth[i].w === w && state.nth[i].n === nthOf(d)) return true;
+    return false;
+  }
+  function dayState(y, m, d) {
+    var o = state.over[keyOf(y, m, d)];
+    if (o) return o;
+    return closedByRule(y, m, d) ? "off" : "open";
+  }
+  function monthList() {
+    var n = Math.min(MAX_MONTHS, state.months || 1), out = [], y = state.y, m = state.m;
+    for (var i = 0; i < n; i++) { out.push({ y: y, m: m }); m++; if (m > 12) { m = 1; y++; } }
+    return out;
+  }
+
+  // ===== ②のエディタ =====
+  function renderEditor() {
+    var ed = $("editor");
+    ed.textContent = "";
+    var order = state.monStart ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
+    order.forEach(function (w) {
+      var h = document.createElement("div");
+      h.className = "wd" + (w === 0 ? " sun" : w === 6 ? " sat" : "");
+      h.textContent = WD[w];
+      h.setAttribute("aria-hidden", "true");
+      ed.appendChild(h);
+    });
+    var y = state.y, m = state.m, first = dowOf(y, m, 1);
+    var lead = (first - (state.monStart ? 1 : 0) + 7) % 7;
+    for (var i = 0; i < lead; i++) { var b0 = document.createElement("div"); b0.className = "blank"; ed.appendChild(b0); }
+    for (var d = 1; d <= daysIn(y, m); d++) {
+      (function (d) {
+        var k = keyOf(y, m, d), st = dayState(y, m, d), w = dowOf(y, m, d), hol = HOL[k];
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "s-" + st + (hol || w === 0 ? " hol" : w === 6 ? " sat" : "") + (state.over[k] ? " ovr" : "");
+        b.appendChild(document.createTextNode(String(d)));
+        var sm = document.createElement("small");
+        var lab = cellLabel(st, k, hol);
+        sm.textContent = lab.length > 5 ? lab.slice(0, 5) : lab;
+        b.appendChild(sm);
+        b.setAttribute("aria-label", m + "月" + d + "日(" + WD[w] + ")" + (hol ? hol + "、" : "") + (st === "open" ? "営業" : lab) + (state.over[k] ? "(①から変更)" : "") + "。押すと切り替え");
+        b.addEventListener("click", function () { cycleDay(y, m, d); var nb = $("editor").querySelectorAll("button")[d - 1]; if (nb) nb.focus(); });
+        ed.appendChild(b);
+      })(d);
+    }
+  }
+  function cycleDay(y, m, d) {
+    var k = keyOf(y, m, d), base = closedByRule(y, m, d) ? "off" : "open";
+    var seq = base === "off" ? [null, "temp", "extra", "short"] : [null, "temp", "short", "off", "rent"];
+    // 定休日でも「臨時休業」と書きたい人のために temp を含める。null はルールどおり
+    var cur = state.over[k] || null, i = seq.indexOf(cur);
+    var next = seq[(i + 1) % seq.length];
+    if (next === null) delete state.over[k]; else state.over[k] = next;
+    var now = dayState(y, m, d);
+    setSt("daySt", m + "月" + d + "日: " + (now === "open" ? "営業" : cellLabel(now, k, HOL[k])) + (next === null ? "(①のルールどおり)" : ""));
+    save(); renderEditor(); draw();
+  }
+
+  // 表示する言葉: ①のルールで休みの日は「定休日」(祝日で休みなら祝日名)、②で変えた日は状態の名前
+  function cellLabel(st, k, hol) {
+    if (st === "open") return hol || "";
+    if (st === "off" && !state.over[k]) return hol && state.holOff ? hol : "定休日";
+    return STATE[st].label;
+  }
+  function inkOn(hex) {
+    var m = /^#([0-9a-f]{6})$/i.exec(hex || "");
+    if (!m) return "#222222";
+    var n = parseInt(m[1], 16), r = (n >> 16) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    function lin(c) { return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+    var L = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+    return L < 0.4 ? "#ffffff" : "#1f1f1f";
+  }
+  function fillOf(T, st) { return st === "off" ? T.off : st === "temp" ? T.temp : st === "short" ? T.short : st === "extra" ? T.extra : st === "rent" ? (T.rent || "#e4dcf5") : null; }
+
+  // ===== カレンダー画像(canvas) =====
+  var FONT = '"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif';
+  var logoImg = null;
+  function loadLogo() {
+    logoImg = null;
+    if (!state.logo) return;
+    var im = new Image();
+    im.onload = function () { logoImg = im; draw(); };
+    im.src = state.logo;
+  }
+  function sizeOf() {
+    if (monthList().length >= 3 || state.size === "a4") return { w: 1240, h: 1754 };
+    if (state.size === "pt") return { w: 1080, h: 1350 };
+    if (state.size === "a4") return { w: 1240, h: 1754 };
+    return { w: 1080, h: 1080 };
+  }
+  function fitText(ctx, text, maxW, size, weight) {
+    var s = size;
+    ctx.font = (weight || "700") + " " + s + "px " + FONT;
+    while (s > 10 && ctx.measureText(text).width > maxW) { s -= 2; ctx.font = (weight || "700") + " " + s + "px " + FONT; }
+    return s;
+  }
+  function wrapLines(ctx, text, maxW, maxLines) {
+    var out = [];
+    String(text || "").split(/\n/).forEach(function (para) {
+      var line = "";
+      Array.from(para).forEach(function (ch) {
+        if (ctx.measureText(line + ch).width > maxW && line) { out.push(line); line = ch; }
+        else line += ch;
+      });
+      out.push(line);
+    });
+    return out.filter(function (l, i) { return i < maxLines; });
+  }
+  function drawMonth(ctx, T, x, y, w, h, ym, label, compact) {
+    var cols = 7;
+    var order = state.monStart ? [1, 2, 3, 4, 5, 6, 0] : [0, 1, 2, 3, 4, 5, 6];
+    var labelH = label ? Math.min(h * 0.12, w * 0.1) : 0;
+    if (labelH) {
+      ctx.fillStyle = T.head;
+      ctx.font = "700 " + Math.round(labelH * 0.72) + "px " + FONT;
+      ctx.textAlign = "left"; ctx.textBaseline = "middle";
+      ctx.fillText(label, x, y + labelH / 2);
+    }
+    var gy = y + labelH, gh = h - labelH;
+    var headH = gh * 0.09, cw = w / cols;
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    var rowsFixed = monthList().length > 1 ? 6 : 0;
+    var numSize0 = Math.min(cw, (gh - headH) / 6) * (compact ? 0.42 : 0.34);
+    ctx.font = "700 " + Math.round(Math.min(headH * 0.55, numSize0)) + "px " + FONT;
+    order.forEach(function (wd, i) {
+      ctx.fillStyle = wd === 0 ? T.sun : wd === 6 ? T.sat : T.sub;
+      ctx.fillText(WD[wd], x + cw * i + cw / 2, gy + headH / 2);
+    });
+    var first = dowOf(ym.y, ym.m, 1), lead = (first - (state.monStart ? 1 : 0) + 7) % 7, n = daysIn(ym.y, ym.m);
+    var rows = Math.ceil((lead + n) / 7);
+    var rh = (gh - headH) / (rowsFixed || Math.max(rows, 5));
+    for (var d = 1; d <= n; d++) {
+      var idx = lead + d - 1, r = Math.floor(idx / 7), c = idx % 7;
+      var cx = x + c * cw, cy = gy + headH + r * rh;
+      var st = dayState(ym.y, ym.m, d), k = keyOf(ym.y, ym.m, d), hol = HOL[k], wdw = dowOf(ym.y, ym.m, d);
+      var pad2 = Math.max(2, cw * 0.05);
+      var fill = fillOf(T, st);
+      if (fill) {
+        ctx.fillStyle = fill;
+        roundRect(ctx, cx + pad2, cy + pad2, cw - pad2 * 2, rh - pad2 * 2, Math.min(cw, rh) * 0.14); ctx.fill();
+      }
+      if (st === "extra") { ctx.strokeStyle = T.head; ctx.lineWidth = Math.max(1, cw * 0.02); roundRect(ctx, cx + pad2, cy + pad2, cw - pad2 * 2, rh - pad2 * 2, Math.min(cw, rh) * 0.14); ctx.stroke(); }
+      var numInk = fill ? inkOn(fill) : (hol || wdw === 0) ? T.sun : wdw === 6 ? T.sat : T.ink;
+      ctx.fillStyle = numInk;
+      ctx.font = "700 " + Math.round(Math.min(cw, rh) * (compact ? 0.42 : 0.34)) + "px " + FONT;
+      ctx.fillText(String(d), cx + cw / 2, cy + rh * (compact ? 0.5 : 0.36));
+      var labSize = Math.round(Math.min(cw, rh) * 0.2);
+      if (!compact && labSize >= 16) {
+        var lab = cellLabel(st, k, hol);
+        if (lab) {
+          ctx.font = "700 " + labSize + "px " + FONT;
+          ctx.fillStyle = fill ? inkOn(fill) : T.sub;
+          var s = lab;
+          while (ctx.measureText(s).width > cw * 0.9 && s.length > 1) s = s.slice(0, -1);
+          ctx.fillText(s, cx + cw / 2, cy + rh * 0.72);
+        }
+      }
+    }
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function usedStates(ms) {
+    var u = {};
+    ms.forEach(function (ym) { for (var d = 1; d <= daysIn(ym.y, ym.m); d++) u[dayState(ym.y, ym.m, d)] = 1; });
+    return u;
+  }
+  function credit() { return EDITION !== "full" || !state.noCredit; }
+  function render(cv, mul) {
+    var S = sizeOf(), T = themeOf();
+    cv.width = S.w * mul; cv.height = S.h * mul;
+    var ctx = cv.getContext("2d");
+    ctx.setTransform(mul, 0, 0, mul, 0, 0);
+    ctx.fillStyle = T.bg; ctx.fillRect(0, 0, S.w, S.h);
+    var P = Math.round(S.w * 0.06), y = P;
+    var ms = monthList();
+    var lastM = ms[ms.length - 1], cross = ms[0].y !== lastM.y;
+    var title = state.title || (ms.length === 12 && !cross ? ms[0].y + "年 営業日カレンダー" : ms.length > 1 ? (cross ? ms[0].y + "年" + ms[0].m + "月〜" + lastM.y + "年" + lastM.m + "月の営業日" : ms[0].m + "月〜" + lastM.m + "月の営業日") : state.m + "月の営業日");
+    // 見出し
+    var logoW = 0;
+    if (logoImg) {
+      var lh = S.w * 0.11, lw = Math.min(S.w * 0.22, lh * logoImg.width / logoImg.height);
+      ctx.drawImage(logoImg, P, y, lw, lw * logoImg.height / logoImg.width);
+      logoW = lw + S.w * 0.03;
+    }
+    ctx.textAlign = "left"; ctx.textBaseline = "top";
+    if (state.shop) {
+      ctx.fillStyle = T.sub;
+      fitText(ctx, state.shop, S.w - P * 2 - logoW, Math.round(S.w * 0.035), "700");
+      ctx.fillText(state.shop, P + logoW, y);
+      y += S.w * 0.05;
+    }
+    ctx.fillStyle = T.head;
+    var ts = fitText(ctx, title, S.w - P * 2 - logoW, Math.round(S.w * 0.068), "900");
+    ctx.fillText(title, P + logoW, y);
+    y += ts * 1.35;
+    if (logoImg) y = Math.max(y, P + S.w * 0.12);
+    // 下の段(凡例・ひとこと・クレジット)
+    var used = usedStates(ms);
+    ctx.font = "700 " + Math.round(S.w * 0.026) + "px " + FONT;
+    var noteLines = state.note ? wrapLines(ctx, state.note, S.w - P * 2, 3) : [];
+    var lineH = S.w * 0.036;
+    var bottomH = lineH * 1.6 + noteLines.length * lineH + (credit() ? lineH : 0);
+    var gridH = S.h - y - P - bottomH;
+    // 月の並べ方
+    var n = ms.length, cols = n === 12 ? 3 : (n === 1 ? 1 : (S.h / S.w > 1.15 ? 1 : n)), rowsN = Math.ceil(n / cols);
+    var gap = S.w * 0.03;
+    var bw = (S.w - P * 2 - gap * (cols - 1)) / cols, bh = (gridH - gap * (rowsN - 1)) / rowsN;
+    var crossYear = ms[0].y !== ms[n - 1].y;
+    ms.forEach(function (ym, i) {
+      var c = i % cols, r = Math.floor(i / cols);
+      var label = n > 1 ? ((crossYear && (i === 0 || ym.m === 1)) ? ym.y + "年 " : "") + ym.m + "月" : "";
+      drawMonth(ctx, T, P + c * (bw + gap), y + r * (bh + gap), bw, bh, ym, label, n === 12 || (n >= 3 && cols > 1));
+    });
+    var by = y + gridH + lineH * 0.4;
+    // 凡例
+    var keys = ["off", "temp", "short", "extra", "rent"].filter(function (k) { return used[k]; });
+    var lx = P;
+    ctx.textBaseline = "middle";
+    ctx.font = "700 " + Math.round(S.w * 0.025) + "px " + FONT;
+    keys.forEach(function (k) {
+      var col = fillOf(T, k);
+      ctx.fillStyle = col; roundRect(ctx, lx, by, lineH * 0.8, lineH * 0.8, 6); ctx.fill();
+      if (k === "extra") { ctx.strokeStyle = T.head; ctx.lineWidth = 2; ctx.stroke(); }
+      ctx.fillStyle = T.ink; ctx.textAlign = "left";
+      var lab = k === "off" ? "定休日・休業" : STATE[k].label;
+      ctx.fillText(lab, lx + lineH, by + lineH * 0.42);
+      lx += lineH + ctx.measureText(lab).width + S.w * 0.035;
+    });
+    var ny = by + lineH * 1.4;
+    ctx.fillStyle = T.ink; ctx.textAlign = "left";
+    ctx.font = "700 " + Math.round(S.w * 0.026) + "px " + FONT;
+    noteLines.forEach(function (l, i) { ctx.fillText(l, P, ny + i * lineH); });
+    if (credit()) {
+      ctx.textAlign = "right"; ctx.fillStyle = T.sub;
+      ctx.font = "400 " + Math.round(S.w * 0.018) + "px " + FONT;
+      ctx.fillText("uuhai0625.github.io/eigyobi-calendar", S.w - P * 0.6, S.h - P * 0.45);
+    }
+    return cv;
+  }
+  function draw() {
+    render($("cv"), 1);
+    var ms = monthList();
+    $("cv").setAttribute("aria-label", "営業日カレンダーの見本: " + ms[0].y + "年" + ms[0].m + "月" + (ms.length > 1 ? "から" + ms.length + "か月" : ""));
+    var lastY = ms[ms.length - 1].y;
+    if (lastY > HOL_LAST_YEAR || ms[0].y < HOL_FIRST_YEAR) setSt("outSt", "祝日が入っているのは2026年・2027年だけです(" + (HOL_LAST_YEAR + 1) + "年以降は内閣府の公表後に追加予定)。②で日ごとに休みにできます。", true);
+    else if ($("outSt").classList.contains("err")) setSt("outSt", "");
+  }
+
+  // ===== 保存・印刷 =====
+  function hiMul() { return EDITION === "full" && state.hi ? 2 : 1; }
+  $("pngBtn").addEventListener("click", function () {
+    var cv = render(document.createElement("canvas"), hiMul());
+    cv.toBlob(function (b) {
+      if (!b) { setSt("outSt", "画像を作れませんでした。", true); return; }
+      var ms = monthList();
+      var name = "営業日カレンダー_" + ms[0].y + "-" + pad(ms[0].m) + (ms.length > 1 ? "_" + ms.length + "か月" : "") + ".png";
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(b); a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      setSt("outSt", "保存しました(" + cv.width + "×" + cv.height + "px)。");
+      track("cal_png", { size: state.size, months: ms.length });
+    }, "image/png");
+  });
+  function printNode(node) {
+    var pa = $("printArea");
+    pa.textContent = "";
+    pa.appendChild(node);
+    document.body.classList.add("printing");
+    setTimeout(function () { window.print(); }, 60);
+  }
+  window.addEventListener("afterprint", function () { document.body.classList.remove("printing"); });
+  $("printBtn").addEventListener("click", function () {
+    var keep = state.size;
+    state.size = "a4";
+    var cv = render(document.createElement("canvas"), 2);
+    state.size = keep;
+    var img = new Image();
+    img.alt = "営業日カレンダー";
+    img.onload = function () { printNode(img); };
+    img.src = cv.toDataURL("image/png");
+    setSt("outSt", "印刷画面を開きます(A4縦)。「PDFに保存」を選ぶとPDFにできます。");
+    track("cal_print", { months: monthList().length });
+  });
+
+  // ===== 臨時休業のお知らせ =====
+  function fmtDate(s, withYear) {
+    var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+    if (!p) return "";
+    var y = +p[1], m = +p[2], d = +p[3];
+    return (withYear ? y + "年" : "") + m + "月" + d + "日(" + WD[dowOf(y, m, d)] + ")";
+  }
+  // 最後の日の次の営業日(①②の定休日・休業を飛ばす)。60日先までに無ければ翌日
+  function resumeDay(s) {
+    var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || "");
+    if (!p) return { k: "", st: "" };
+    for (var i = 1; i <= 60; i++) {
+      var dt = new Date(+p[1], +p[2] - 1, +p[3] + i), y = dt.getFullYear(), m = dt.getMonth() + 1, d = dt.getDate();
+      var st = dayState(y, m, d);
+      if (st === "open" || st === "short" || st === "extra") return { k: keyOf(y, m, d), st: st };
+    }
+    var dt2 = new Date(+p[1], +p[2] - 1, +p[3] + 1);
+    return { k: keyOf(dt2.getFullYear(), dt2.getMonth() + 1, dt2.getDate()), st: "open" };
+  }
+  function noticeNode() {
+    var n = state.nt, box = document.createElement("div");
+    box.className = "notice";
+    var from = n.from, to = n.to && n.to >= n.from ? n.to : n.from;
+    var kind = n.kind || "臨時休業";
+    var reason = n.reason === "custom" ? (n.custom || "誠に勝手ながら、都合により") : n.reason;
+    var t = document.createElement("div"); t.className = "nt"; t.textContent = kind + "のお知らせ"; box.appendChild(t);
+    var b1 = document.createElement("div"); b1.className = "nb";
+    var lead = reason.replace(/[、,，。\s]+$/, "");
+    b1.textContent = (lead ? lead + "、" : "") + "下記の日程を" + (kind === "臨時休業" ? "臨時休業" : "休業") + "とさせていただきます。";
+    box.appendChild(b1);
+    var dd = document.createElement("div"); dd.className = "nd";
+    var cross = from && to && from.slice(0, 4) !== to.slice(0, 4);
+    dd.textContent = from ? (to && to !== from ? fmtDate(from, cross) + " 〜 " + fmtDate(to, cross) : fmtDate(from)) : "(日にちを選んでください)";
+    box.appendChild(dd);
+    if (from) {
+      var nr = document.createElement("div"); nr.className = "nr";
+      if (n.undecided) nr.textContent = "営業再開は決まり次第、改めてお知らせいたします。";
+      else {
+        var rs = resumeDay(to || from);
+        nr.textContent = fmtDate(rs.k, rs.k.slice(0, 4) !== from.slice(0, 4)) + "より" + (rs.st === "open" ? "通常営業" : "営業") + "いたします。";
+      }
+      box.appendChild(nr);
+    }
+    var b2 = document.createElement("div"); b2.className = "nb";
+    b2.textContent = "ご不便をおかけいたしますが、何卒ご了承くださいますようお願い申し上げます。" + (n.extra ? "\n" + n.extra : "");
+    b2.style.whiteSpace = "pre-wrap";
+    box.appendChild(b2);
+    var sh = document.createElement("div"); sh.className = "ns"; sh.textContent = n.shop || state.shop || ""; box.appendChild(sh);
+    return box;
+  }
+  function renderNotice() {
+    var pv = $("ntPreview"), nn = noticeNode();
+    pv.textContent = "";
+    while (nn.firstChild) pv.appendChild(nn.firstChild);
+    $("ntCustomField").classList.toggle("hidden", state.nt.reason !== "custom");
+    if (state.nt.to && state.nt.from && state.nt.to < state.nt.from) setSt("ntSt", "最後の日が最初の日より前になっています。", true);
+  }
+  $("ntPrint").addEventListener("click", function () {
+    if (!state.nt.from) { setSt("ntSt", "休む最初の日を選んでください。", true); $("ntFrom").focus(); return; }
+    if (state.nt.to && state.nt.to < state.nt.from) { setSt("ntSt", "最後の日が最初の日より前になっています。", true); $("ntTo").focus(); return; }
+    setSt("ntSt", "印刷画面を開きます(A4縦)。");
+    printNode(noticeNode());
+    track("notice_print", { reason: state.nt.reason === "custom" ? "custom" : "preset" });
+  });
+
+  // ===== 入力のつなぎ込み =====
+  function fillSelects() {
+    var ys = $("inYear"), y0 = today.getFullYear();
+    for (var y = y0; y <= y0 + 2; y++) { var o = document.createElement("option"); o.value = y; o.textContent = y + "年"; ys.appendChild(o); }
+    var msel = $("inMonth");
+    for (var m = 1; m <= 12; m++) { var o2 = document.createElement("option"); o2.value = m; o2.textContent = m + "月"; msel.appendChild(o2); }
+    var ws = $("weekSeg");
+    [1, 2, 3, 4, 5, 6, 0].forEach(function (w) {
+      var l = document.createElement("label");
+      var i = document.createElement("input"); i.type = "checkbox"; i.value = w; i.setAttribute("aria-label", WD[w] + "曜日を毎週の定休日にする");
+      i.addEventListener("change", function () { state.weekly[w] = i.checked; l.classList.toggle("on", i.checked); save(); renderEditor(); draw(); });
+      l.appendChild(i); l.appendChild(document.createTextNode(" " + WD[w]));
+      ws.appendChild(l);
+    });
+    var nw = $("nthW");
+    [1, 2, 3, 4, 5, 6, 0].forEach(function (w) { var o3 = document.createElement("option"); o3.value = w; o3.textContent = WD[w] + "曜日"; nw.appendChild(o3); });
+  }
+  function clampYear() {
+    var y0 = today.getFullYear();
+    if (state.y < y0) { state.y = y0; state.m = 1; }
+    if (state.y > y0 + 2) { state.y = y0 + 2; state.m = 12; }
+  }
+  function applyInputs() {
+    clampYear();
+    $("inYear").value = state.y; $("inMonth").value = state.m;
+    document.querySelectorAll("#weekSeg input").forEach(function (i) { i.checked = state.weekly[+i.value]; i.parentNode.classList.toggle("on", i.checked); });
+    $("holOff").checked = state.holOff;
+    $("monStart").checked = state.monStart;
+    $("inShop").value = state.shop; $("inTitle").value = state.title; $("inNote").value = state.note;
+    if (![].some.call($("inTheme").options, function (o) { return o.value === state.theme; })) state.theme = "simple";
+    $("inTheme").value = state.theme; $("inSize").value = state.size;
+    $("ntFrom").value = state.nt.from; $("ntTo").value = state.nt.to; $("ntReason").value = state.nt.reason; $("ntCustom").value = state.nt.custom; $("ntShop").value = state.nt.shop; $("ntExtra").value = state.nt.extra;
+    if (!$("ntReason").value) { state.nt.reason = "誠に勝手ながら、都合により"; $("ntReason").value = state.nt.reason; }
+    
+    renderNth();
+    $("ntKind").value = state.nt.kind; $("ntUndecided").checked = state.nt.undecided;
+  }
+  function setMonth(y, m) {
+    if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; }
+    state.y = y; state.m = m; clampYear();
+    $("inYear").value = state.y; $("inMonth").value = state.m;
+    save(); renderEditor(); draw();
+  }
+  $("prevBtn").addEventListener("click", function () { setMonth(state.y, state.m - 1); });
+  $("nextBtn").addEventListener("click", function () { setMonth(state.y, state.m + 1); });
+  $("inYear").addEventListener("change", function () { setMonth(+this.value, state.m); });
+  $("inMonth").addEventListener("change", function () { setMonth(state.y, +this.value); });
+  $("holOff").addEventListener("change", function () { state.holOff = this.checked; save(); renderEditor(); draw(); });
+  $("monStart").addEventListener("change", function () { state.monStart = this.checked; save(); renderEditor(); draw(); });
+  $("clearMonth").addEventListener("click", function () {
+    var pre = state.y + "-" + pad(state.m) + "-", n = 0;
+    Object.keys(state.over).forEach(function (k) { if (k.indexOf(pre) === 0) { delete state.over[k]; n++; } });
+    setSt("daySt", n ? state.m + "月の変更(" + n + "日)を戻しました。" : "この月に変更はありません。");
+    save(); renderEditor(); draw();
+  });
+  [["inShop", "shop", 30], ["inTitle", "title", 24], ["inNote", "note", 120]].forEach(function (p) {
+    $(p[0]).addEventListener("input", function () { state[p[1]] = clean(this.value, p[2]); save(); draw(); renderNotice(); });
+  });
+  $("inTheme").addEventListener("change", function () {
+    state.theme = this.value;
+    
+    save(); draw();
+  });
+  $("inSize").addEventListener("change", function () {
+    state.size = this.value;
+    if (monthList().length >= 3 && state.size !== "a4") { state.size = "a4"; this.value = "a4"; setSt("outSt", "3か月以上はA4縦だけです。正方形・縦長にするときは「並べる月の数」を1か月か2か月にしてください。", true); }
+    save(); draw();
+  });
+  [["ntFrom", "from"], ["ntTo", "to"], ["ntReason", "reason"], ["ntCustom", "custom"], ["ntShop", "shop"], ["ntExtra", "extra"]].forEach(function (p) {
+    $(p[0]).addEventListener(p[0] === "ntReason" ? "change" : "input", function () { state.nt[p[1]] = clean(this.value, 80); if (p[1] === "from" && (!state.nt.to || state.nt.to < state.nt.from)) { state.nt.to = state.nt.from; $("ntTo").value = state.nt.to; } setSt("ntSt", ""); save(); renderNotice(); });
+  });
+  function renderNth() {
+    var ul = $("nthList"); ul.textContent = "";
+    state.nth.forEach(function (r, i) {
+      var li = document.createElement("li");
+      li.appendChild(document.createTextNode("第" + r.n + WD[r.w] + "曜日"));
+      var x = document.createElement("button"); x.type = "button"; x.textContent = "×"; x.setAttribute("aria-label", "第" + r.n + WD[r.w] + "曜日の定休日を外す");
+      x.addEventListener("click", function () { state.nth.splice(i, 1); save(); renderNth(); renderEditor(); draw(); $("nthAdd").focus(); });
+      li.appendChild(x); ul.appendChild(li);
+    });
+  }
+  $("nthAdd").addEventListener("click", function () {
+    var r = { n: +$("nthN").value, w: +$("nthW").value };
+    if (state.nth.some(function (x) { return x.n === r.n && x.w === r.w; })) return;
+    if (state.nth.length >= 10) return;
+    state.nth.push(r); save(); renderNth(); renderEditor(); draw();
+  });
+  $("ntKind").addEventListener("change", function () { state.nt.kind = this.value; save(); renderNotice(); });
+  $("ntUndecided").addEventListener("change", function () { state.nt.undecided = this.checked; save(); renderNotice(); });
+  
+
+  if (EDITION === "full") {
+    $("pro-section").classList.add("hidden");
+    $("creditNote").classList.add("hidden");
+  }
+  if (EDITION !== "full") {
+    state.months = 1;
+    $("privacyNote").innerHTML = '入力した内容はどこにも送信されません(すべてこのブラウザの中で処理します)。このページでは利用状況の把握のためにアクセス解析(Google Analytics)を使っています。<a href="https://policies.google.com/technologies/partner-sites?hl=ja" target="_blank" rel="noopener">Googleによるデータの使用について</a>';
+  }
+
+  fillSelects();
+  load();
+  if (EDITION !== "full") { state.months = 1; state.logo = ""; }
+  applyInputs();
+  renderEditor();
+  renderNotice();
+  loadLogo();
+  draw();
+})();
+</script>
+<!--UPSELL_JS_START-->
+<script>
+(function () {
+  "use strict";
+  var q = new URLSearchParams(location.search);
+  if (q.get("obs") === "1" || document.documentElement.classList.contains("obs")) return;
+  // 小さな案内(トースト)は、買い切り版がパソコン向けなので、マウス操作の広い画面でだけ出す
+  var pc = !!(window.matchMedia && matchMedia("(pointer:fine) and (min-width:720px)").matches);
+  var buy = document.getElementById("buyLink");
+  var pro = document.getElementById("pro-section");
+  if (!buy || !pro) return;
+  var FEATS = [];
+  var path = location.pathname.replace(/index\.html$/, "");
+  var KEY_CLOSED = "upsell_closed_until:" + path, KEY_SHOWN = "upsell_shown:" + path;
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function sess(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch (e) { return null; } }
+  function gtagEv(name, p) { if (!window.dataLayer) return; (function () { window.dataLayer.push(arguments); })("event", name, p || {}); }
+
+  var shown = false;
+  function blocked() {
+    if (shown || sess(KEY_SHOWN) === "1") return true;
+    var until = Number(store(KEY_CLOSED) || 0);
+    return until && Date.now() < until;
+  }
+  function feats() {
+    if (FEATS.length) return FEATS;
+    var out = [];
+    var lis = pro.querySelectorAll(".feat-list li");
+    for (var i = 0; i < lis.length && out.length < 3; i++) {
+      var all = lis[i].textContent.replace(/\s+/g, " ").trim();
+      if (/スマホ|HTMLファイル|パソコンで使う/.test(all)) continue;
+      var st = lis[i].querySelectorAll("strong");
+      var t = st.length === 1 ? st[0].textContent : all.split(/[::。]/)[0];
+      t = t.replace(/[((][^()()]*[))]/g, "").replace(/\s+/g, " ").trim();
+      if (t.length > 40) t = t.slice(0, 39) + "…";
+      if (t) out.push(t);
+    }
+    return out;
+  }
+  // 「〜してください」「できません」など、失敗の表示が出ていたら案内しない
+  function failed() {
+    var els = document.querySelectorAll('[role="status"], [role="alert"], [aria-live]');
+    for (var i = 0; i < els.length; i++) {
+      if (pro.contains(els[i]) || !els[i].offsetParent) continue;
+      if (/ください|できません|できませんでした|失敗|ありません|エラー/.test(els[i].textContent)) return true;
+    }
+    return false;
+  }
+  function proVisible() {
+    var r = pro.getBoundingClientRect();
+    return r.top < innerHeight && r.bottom > 0;
+  }
+  function show(trigger) {
+    if (!pc || blocked() || (trigger === "action" && failed()) || proVisible()) return;
+    var list = feats();
+    if (!list.length) return;
+    shown = true;
+    sess(KEY_SHOWN, "1");
+    var box = document.createElement("aside");
+    box.className = "upsell-toast";
+    box.setAttribute("aria-label", "買い切り版のご案内");
+    box.setAttribute("aria-live", "polite");
+    document.body.appendChild(box);
+    var p = document.createElement("p");
+    p.textContent = trigger === "limit"
+      ? "この先は買い切り版の機能です。パソコン用の買い切り版(¥100・税込)なら:"
+      : "うまくできましたか? パソコン用の買い切り版(¥100・税込)なら、さらに:";
+    var ul = document.createElement("ul");
+    list.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+    var a = document.createElement("a");
+    a.className = "upsell-go";
+    a.id = "upsellToastLink";
+    a.href = buy.href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = "BOOTHで見る(新しいタブ)";
+    var bg = getComputedStyle(buy).backgroundColor;
+    if (bg && !/rgba?\(0, 0, 0, 0\)|transparent/.test(bg)) a.style.background = bg;
+    var x = document.createElement("button");
+    x.type = "button";
+    x.className = "upsell-x";
+    x.setAttribute("aria-label", "この案内を閉じる");
+    x.textContent = "×";
+    function close(remember) {
+      if (box.parentNode) box.parentNode.removeChild(box);
+      document.removeEventListener("keydown", onKey);
+      if (remember) store(KEY_CLOSED, String(Date.now() + 7 * 864e5));
+    }
+    // Escはページ側の操作(選択解除など)にも使われるので、案内の中にフォーカスがある時だけ閉じる
+    function onKey(e) { if (e.key === "Escape" && box.contains(document.activeElement)) close(true); }
+    x.addEventListener("click", function () { close(true); });
+    a.addEventListener("click", function () { setTimeout(function () { close(false); }, 0); });
+    document.addEventListener("keydown", onKey);
+    setTimeout(function () {
+      var note = document.createElement("small");
+      note.className = "upsell-note";
+      note.textContent = "スマホではファイルを開けない機種があります";
+      box.appendChild(x); box.appendChild(p); box.appendChild(ul); box.appendChild(a); box.appendChild(note);
+    }, 50);
+    gtagEv("upsell_show", { trigger: trigger });
+  }
+
+  // 保存・コピー・印刷・書き出しを押した直後(結果を受け取れたタイミング)
+  var OK = /保存|コピー|印刷|書き出|ダウンロード|共有|PDF/;
+  var NG = /読み込|リセット|消|削除|このブラウザに保存|確認|イメージを見る|戻/;
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest("button, a[download], input[type=button], input[type=submit]") : null;
+    if (!el || el.closest("#pro-section, .upsell-toast, #anshin")) return;
+    var label = (el.textContent || el.value || "").replace(/\s+/g, " ");
+    if (!OK.test(label) || NG.test(label)) return;
+    setTimeout(function () { show("action"); }, 1500);
+  }, true);
+
+  // 無料版の上限まわり
+  // (1) ページが出す「買い切り版」の一文に、購入欄へのリンクを足す(スマホでも)。🔒のタブは薄く表示されているので入れない
+  // (2) 案内(パソコンのみ)は、はっきりした合図のときだけ出す: 🔒のクリック・買い切り版にふれたalert・
+  //     初めて出た「〜まで/のみ/以降/入っていません」の上限の一文(計算のたびに出る誘導文や、同じ文の描き直しでは出さない)
+  var SKIP = "#pro-section, .upsell-toast, .upsell-top, #anshin, a, button, label, select, option, h1, h2, h3, .badge, header, footer, nav, textarea, pre, code, [contenteditable], svg";
+  var LIMIT = /まで|のみ|以降|入っていません/;
+  var seenText = {}, ready = false;
+  function goPro(e) {
+    if (e) e.preventDefault();
+    pro.setAttribute("tabindex", "-1");
+    pro.scrollIntoView({ behavior: "smooth", block: "start" });
+    pro.focus({ preventScroll: true });
+  }
+  function linkify(root, deep) {
+    var limitHit = false;
+    var els = root.matches("p, div, span, li") ? [root] : [];
+    if (deep) els = els.concat([].slice.call(root.querySelectorAll("p, div, span, li")));
+    els.forEach(function (el) {
+      if (el.closest(SKIP) || el.closest('[role="radio"], [role="option"], [role="tab"], [role="button"], [tabindex]:not([tabindex="-1"])') || el.querySelector("a, button, p, div, li, input, label")) return;
+      // 選択肢の「○○(買い切り版)」ではなく、文として買い切り版にふれている要素だけ
+      var own = "";
+      for (var n = el.firstChild; n; n = n.nodeType === 1 && n.className === "upsell-inline" ? null : n.nextSibling) if (n.nodeType === 3) own += n.nodeValue;
+      own = own.trim();
+      if (own.indexOf("買い切り版") < 0 || /[((]買い切り版[))]$/.test(own) || /^🔒/.test(own)) return;
+      var key = own.replace(/\d+/g, "#");
+      if (ready && !seenText[key] && LIMIT.test(own) && !el.closest(".teaser, #teaser, [id$=teaser], #tz")) limitHit = true;
+      seenText[key] = 1;
+      if (el.querySelector(".upsell-inline")) return;
+      var a = document.createElement("a");
+      a.className = "upsell-inline";
+      a.href = "#pro-section";
+      a.setAttribute("aria-label", "くわしく:買い切り版の説明へ移動");
+      a.textContent = "くわしく";
+      var ar = document.createElement("span");
+      ar.setAttribute("aria-hidden", "true");
+      ar.textContent = " ↓";
+      a.appendChild(ar);
+      a.addEventListener("click", goPro);
+      el.appendChild(document.createTextNode(" "));
+      el.appendChild(a);
+    });
+    return limitHit;
+  }
+  linkify(document.body, true);
+  setTimeout(function () { ready = true; }, 1500);
+  var topLink = document.querySelector("#upsellTop a");
+  if (topLink) topLink.addEventListener("click", goPro);
+  new MutationObserver(function (ms) {
+    // 変わったところだけを調べる(足された要素はその中も、文字の変更は親要素だけ)
+    var hit = false, done = new Set();
+    function check(t, deep) {
+      if (!t || t.nodeType !== 1 || done.has(t) || t.closest(".upsell-toast")) return;
+      done.add(t);
+      if (linkify(t, deep)) hit = true;
+    }
+    ms.forEach(function (m) {
+      if (m.type === "characterData") { check(m.target.parentNode, false); return; }
+      check(m.target, false);
+      for (var i = 0; i < m.addedNodes.length; i++) if (m.addedNodes[i].nodeType === 1) check(m.addedNodes[i], true);
+    });
+    if (hit) setTimeout(function () { show("limit"); }, 800);
+  }).observe(document.body, { childList: true, subtree: true, characterData: true });
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest("button, div, span, li") : null;
+    var first = el && el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild.nodeValue : "";
+    if (!/^\s*🔒/.test(first) || e.target.closest("#pro-section")) return;
+    if (pc) setTimeout(function () { show("limit"); }, 300); else goPro();
+  }, true);
+  var origAlert = window.alert;
+  window.alert = function (msg) {
+    var r = origAlert.apply(window, arguments);
+    if (/買い切り版/.test(String(msg))) setTimeout(function () { show("limit"); }, 300);
+    return r;
+  };
+})();
+</script>
+<!--UPSELL_JS_END-->
+</body>
+</html>
